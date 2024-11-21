@@ -8,6 +8,7 @@ const inter = Inter({
   display: "swap",
   strategy: "selfHosted",
   weights: [400, 500, 700],
+  subsets: ["latin"],
 });
 
 export default function Login() {

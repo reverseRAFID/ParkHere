@@ -3,9 +3,9 @@ import WhyCard from "./WhyCard";
 
 export default function WhyChose() {
   return (
-    <div>
+    <section className="pb-[22px] md:pb-[94px]">
       <div className="py-[50px]">
-        <div className="text-center font-semibold text-4xl">
+        <div className="text-center font-semibold text-3xl">
           Why Choose ParkHere?
         </div>
       </div>
@@ -15,6 +15,6 @@ export default function WhyChose() {
         <WhyCard title={"User-Friendly"} subtitle={"Easily create QR codes for parking spaces."} copy1={"QR Code Generation"} copy2={"Easy Setup"} />
         <WhyCard title={"Secure"} subtitle={"Easily create QR codes for parking spaces."} copy1={"QR Code Generation"} copy2={"Easy Setup"} />
       </div>
-    </div>
+    </section>
   );
 }

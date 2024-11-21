@@ -5,12 +5,15 @@ import Line from "../assets/icons/v1.svg";
 import Menu from "../assets/icons/menu.svg";
 import Link from "next/link";
 
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   return (
     <React.Fragment>
       <div className="flex flex-row gap-12 py-5 justify-between  w-full sticky bg-white ">
-        <Link href={"/"}><Image src={Logo} alt="Logo" className="cursor-pointer" /></Link>
+        <Link href={"/"}>
+          <Image src={Logo} alt="Logo" className="cursor-pointer" />
+        </Link>
         {/* /* Desktop */}
         <div className="flex-1 w-full justify-between flex-row hidden lg:flex">
           <div>
@@ -24,7 +27,9 @@ export default function Navbar() {
           <div className="flex flex-row gap-8">
             {/* <div className="cursor-pointer">Download app</div>
             <Image src={Line} alt="Line" /> */}
-            <Link href={"/login"}><div className="cursor-pointer hover:font-semibold">Log in</div></Link>
+            <Link href={"/login"}>
+              <div className="cursor-pointer hover:font-semibold">Log in</div>
+            </Link>
             <div className="bg-[#14AE5C] hover:font-semibold hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
               Try it free
             </div>
@@ -36,10 +41,12 @@ export default function Navbar() {
           <div className="bg-[#14AE5C] hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
             Try it free
           </div>
-          <div onClick={()=> {
-            setMenuOpen(!menuOpen);
-          }}
-          className="cursor-pointer">
+          <div
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+            }}
+            className="cursor-pointer"
+          >
             <Image src={Menu} alt="Menu" />
           </div>
           <div
@@ -50,16 +57,28 @@ export default function Navbar() {
             <div className="">
               <div>
                 <ul className="flex flex-col">
-                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">Features</li>
-                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">Pricing</li>
-                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">About Us</li>
-                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">Contact</li>
+                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">
+                    Features
+                  </li>
+                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">
+                    Pricing
+                  </li>
+                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">
+                    About Us
+                  </li>
+                  <li className="cursor-pointer p-3 hover:bg-[#31723417]">
+                    Contact
+                  </li>
                 </ul>
               </div>
               <div className="flex flex-col">
                 {/* <div className="p-6 hover:bg-[#31723417]">Download app</div> */}
                 {/* <Image src={Line} alt="Line" /> */}
-                <div className="p-3 cursor-pointer hover:bg-[#31723417] font-bold">Log in</div>
+                <Link href={"/login"}>
+                  <div className="p-3 cursor-pointer hover:bg-[#31723417] font-bold">
+                    Log in
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,0 +1,6 @@
+npm i --force
+npm run dev
+
+npx prisma db push
+
+// npm exec prisma generate

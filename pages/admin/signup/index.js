@@ -1,11 +1,11 @@
 import React from "react";
-import Logo from "../../assets/icons/logo.svg";
+import Logo from "../../../assets/icons/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -35,6 +35,7 @@ const formSchema = z.object({
 
 export default function Signup() {
   const [page, setPage] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,6 +47,7 @@ export default function Signup() {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     if (data.password !== data.confirmPassword) {
       form.setError("confirmPassword", {
         type: "manual",
@@ -58,7 +60,7 @@ export default function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, role: "ADMIN" }),
     });
 
     if (response.status === 500) {
@@ -66,19 +68,17 @@ export default function Signup() {
         type: "manual",
         message: "Email already exists",
       });
+      setLoading(false);
       return;
     }
 
-    const user = await response.json();
-
-    console.log(user);
-
-    if (!user) {
-      form.setError("email", {
-        type: "manual",
-        message: "Email already exists",
+    if (response.status === 201) {
+      const result = await response.json();
+      const login = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/admin",
       });
-      return
     }
   };
   return (
@@ -88,8 +88,10 @@ export default function Signup() {
           <Image src={Logo} alt="Logo" className="cursor-pointer" />
         </Link>
         <div className="flex flex-col h-[90vh] justify-center items-center text-center">
-          <div className="font-semibold text-3xl py-2">Create Your Account</div>
-          <div>Register to start booking parking spots with ease.</div>
+          <div className="font-semibold text-3xl py-2">
+            Create Your <span className="text-[#21AD5C]">Admin Account</span>
+          </div>
+          <div>Register to start managing parking spots with ease.</div>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -198,16 +200,28 @@ export default function Signup() {
               </div>
 
               <div className="pt-3">
-                <Button className="rounded-xl max-w-[350px] sm:max-w-[400px] w-[100vw]">
-                  Sign Up
-                </Button>
+                {loading ? (
+                  <Button
+                    disabled
+                    className="rounded-xl max-w-[350px] sm:max-w-[400px] w-[100vw]"
+                  >
+                    Signing Up...
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="rounded-xl max-w-[350px] sm:max-w-[400px] w-[100vw]"
+                  >
+                    Sign Up
+                  </Button>
+                )}
               </div>
             </form>
           </Form>
 
           <div className="text-sm">
             or,{" "}
-            <Link href={"/login"}>
+            <Link href={"/admin/login"}>
               <span className="font-bold">Login</span>
             </Link>
           </div>

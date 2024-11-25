@@ -1,13 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import Logo from "../assets/icons/logo.svg";
 import Line from "../assets/icons/v1.svg";
 import Menu from "../assets/icons/menu.svg";
 import Link from "next/link";
-
+import { useSession } from "next-auth/react";
+import {Gauge}  from "lucide-react"
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const { data: session } = useSession({
+    required: false,
+  });
   return (
     <React.Fragment>
       <div className="flex flex-row gap-12 py-5 justify-between  w-full sticky bg-white ">
@@ -27,12 +33,24 @@ export default function Navbar() {
           <div className="flex flex-row gap-8">
             {/* <div className="cursor-pointer">Download app</div>
             <Image src={Line} alt="Line" /> */}
-            <Link href={"/login"}>
-              <div className="cursor-pointer hover:font-semibold">Log in</div>
-            </Link>
-            <div className="bg-[#14AE5C] hover:font-semibold hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
-              Try it free
-            </div>
+            {!session && (
+              <Link href={"/login"}>
+                <div className="cursor-pointer hover:font-semibold">Log in</div>
+              </Link>
+            )}
+            {!session && (
+              <div className="bg-[#14AE5C] hover:font-semibold hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
+                Try it free
+              </div>
+            )}
+
+            {session && (
+              <Link href={"/dashboard"}>
+                <div className="bg-[#14AE5C] flex flex-row gap-2 hover:font-semibold hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
+                <Gauge /> Dashboard 
+                </div>
+              </Link>
+            )}
           </div>
         </div>
 

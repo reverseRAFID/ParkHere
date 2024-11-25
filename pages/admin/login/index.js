@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import Logo from "../../assets/icons/logo.svg";
+import Logo from "../../../assets/icons/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "next/font/google";
@@ -58,7 +58,7 @@ export default function Login() {
       const login = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/",
+        callbackUrl: "/admin",
       });
     } else {
       form.setError("email", {
@@ -77,9 +77,9 @@ export default function Login() {
         </Link>
         <div className="flex flex-col h-[90vh] justify-center items-center text-center">
           <div className="font-semibold text-3xl py-2">
-            Login to Your Account
+            Login to Your <span className="text-[#21AD5C]">Admin Account</span>
           </div>
-          <div>Login to start booking parking spots with ease.</div>
+          <div>Login to start managing parking spots with ease.</div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="pt-8">
@@ -143,7 +143,7 @@ export default function Login() {
           </Form>
           <div className="text-sm">
             or,{" "}
-            <Link href={"/signup"}>
+            <Link href={"/admin/signup"}>
               <span className="font-bold">Sign Up</span>
             </Link>
           </div>

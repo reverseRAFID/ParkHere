@@ -25,7 +25,7 @@ export default function AdminWrapper({ children }) {
     },
   });
 
-  console.log(JSON.stringify(session));
+  console.log(session);
 
   if (!session) {
     return (

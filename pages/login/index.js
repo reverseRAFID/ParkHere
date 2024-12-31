@@ -58,7 +58,7 @@ export default function Login() {
       const login = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/",
+        callbackUrl: "/dashboard",
       });
     } else {
       form.setError("email", {

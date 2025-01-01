@@ -25,6 +25,14 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  VehicleProfile VehicleProfile[]
+
+  Reservation Reservation[]
+
+  Payment Payment[]
+
+  Reward Reward[]
 }
 
 model Account {
@@ -67,4 +75,78 @@ model VerificationToken {
   expires    DateTime
  
   @@unique([identifier, token])
+}
+
+//rafid added
+model PasswordResetToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+}
+
+model VehicleProfile {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
+  licensePlate String   @unique
+  type         String
+  color        String
+  name         String
+  driverLicense String
+  insurance    String
+  registration String
+  image        String?
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+}
+
+model Parking {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  location    String
+  isAvailable Boolean
+  capacity    Int
+  waitTime    Int
+  reservations Reservation[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Reservation {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  parkingId   String   @db.ObjectId
+  startTime   DateTime
+  endTime     DateTime
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parking     Parking  @relation(fields: [parkingId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  amount      Float
+  method      String
+  date        DateTime
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Reward {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  points      Int
+  userId      String   @db.ObjectId
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

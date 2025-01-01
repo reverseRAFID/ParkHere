@@ -291,7 +291,7 @@ export default function AdminWrapper({ children }) {
                 </span> 
               </a>
             </li> */}
-            {/* <li>
+            <li>
                 <a
                   href="/sys-admin/payments"
                   className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
@@ -315,7 +315,7 @@ export default function AdminWrapper({ children }) {
                   </span>
                   
                 </a>
-              </li> */}
+              </li>
             {/* <li>
               <a
                 href="#"

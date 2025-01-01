@@ -16,39 +16,39 @@ export default function NearbyParking() {
           defaultValue={""}
         >
           <option value={""}>Price</option>
-          <option value={"500"}>BDT0 - BDT500</option>
-          <option value={"1000"}>BDT501 - BDT1000</option>
-          <option value={"2000"}>BDT1000 +</option>
+          <option value={"0-500"}>BDT0 - BDT500</option>
+          <option value={"501-1000"}>BDT501 - BDT1000</option>
+          <option value={"1001+"}>BDT1001 +</option>
         </select>
 
         <select
           className="border border-gray-300 rounded-2xl px-4 py-2"
           defaultValue={""}
         >
-          <option value={""}>Price</option>
-          <option value={"500"}>BDT0 - BDT500</option>
-          <option value={"1000"}>BDT501 - BDT1000</option>
-          <option value={"2000"}>BDT1000 +</option>
+          <option value={""}>Distance</option>
+          <option value={"0-1"}>0 - 1 km</option>
+          <option value={"1-5"}>1 - 5 km</option>
+          <option value={"5+"}>5+ km</option>
         </select>
 
         <select
           className="border border-gray-300 rounded-2xl px-4 py-2"
           defaultValue={""}
         >
-          <option value={""}>Price</option>
-          <option value={"500"}>BDT0 - BDT500</option>
-          <option value={"1000"}>BDT501 - BDT1000</option>
-          <option value={"2000"}>BDT1000 +</option>
+          <option value={""}>Rating</option>
+          <option value={"4"}>4+ stars</option>
+          <option value={"3"}>3+ stars</option>
+          <option value={"2"}>2+ stars</option>
         </select>
 
         <select
           className="border border-gray-300 rounded-2xl px-4 py-2"
           defaultValue={""}
         >
-          <option value={""}>Price</option>
-          <option value={"500"}>BDT0 - BDT500</option>
-          <option value={"1000"}>BDT501 - BDT1000</option>
-          <option value={"2000"}>BDT1000 +</option>
+          <option value={""}>Features</option>
+          <option value={"evCharging"}>EV Charging</option>
+          <option value={"covered"}>Covered Parking</option>
+          <option value={"security"}>Security</option>
         </select>
       </div>
 

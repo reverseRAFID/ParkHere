@@ -460,7 +460,11 @@ export default function AdminWrapper({ children }) {
         </div>
       </aside>
 
-      {children}
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg  mt-14 flex flex-col gap-4">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

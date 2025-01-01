@@ -58,7 +58,7 @@ export default function Login() {
       const login = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/dashboard",
+        callbackUrl: "/dashboard/find-parking",
       });
     } else {
       form.setError("email", {

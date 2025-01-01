@@ -45,9 +45,9 @@ export default function Navbar() {
             )}
 
             {session && (
-              <Link href={"/dashboard"}>
+              <Link href={"/dashboard/find-parking"}>
                 <div className="bg-[#14AE5C] flex flex-row gap-2 hover:font-semibold hover:bg-[#167140] cursor-pointer text-white rounded-lg items-center justify-center py-2 px-5 -mt-2">
-                <Gauge /> Dashboard 
+                <Gauge /> Find Parking 
                 </div>
               </Link>
             )}

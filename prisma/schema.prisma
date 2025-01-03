@@ -106,8 +106,9 @@ model VehicleProfile {
 model Parking {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   location    String
-  isAvailable Boolean
-  capacity    Int
+  coordinates Float[]
+  isActive    Boolean
+  capacity    Int[]
   waitTime    Int
   reservations Reservation[]
 

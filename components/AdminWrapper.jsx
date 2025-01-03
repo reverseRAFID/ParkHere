@@ -8,6 +8,7 @@ import Logo from "../assets/icons/logo.svg";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import localFont from "next/font/local";
+import { Button } from "./ui/button";
 
 const font = localFont({
   src: "../assets/font/TeX-Gyre-Adventor/texgyreadventor-regular.otf",
@@ -45,54 +46,81 @@ export default function AdminWrapper({ children }) {
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200  ">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-start rtl:justify-end">
-              <button
-                // data-drawer-target="logo-sidebar"
-                // data-drawer-toggle="logo-sidebar"
-                // aria-controls="logo-sidebar"
-                onClick={() => {
-                  document
-                    .querySelector("#logo-sidebar")
-                    .classList.toggle("translate-x-0");
-                  document
-                    .querySelector("#logo-sidebar")
-                    .classList.toggle("-translate-x-full");
-                }}
-                type="button"
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200   "
-              >
-                <span className="sr-only">Open sidebar</span>
-                <svg
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex items-center justify-start rtl:justify-end">
+                <button
+                  // data-drawer-target="logo-sidebar"
+                  // data-drawer-toggle="logo-sidebar"
+                  // aria-controls="logo-sidebar"
+                  onClick={() => {
+                    document
+                      .querySelector("#logo-sidebar")
+                      .classList.toggle("translate-x-0");
+                    document
+                      .querySelector("#logo-sidebar")
+                      .classList.toggle("-translate-x-full");
+                  }}
+                  type="button"
+                  className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200   "
                 >
-                  <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                  ></path>
-                </svg>
-              </button>
-              <a href="/sys-admin" className="flex ms-2 md:me-24">
-                {/* <Image
+                  <span className="sr-only">Open sidebar</span>
+                  <svg
+                    className="w-6 h-6"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      fill-rule="evenodd"
+                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                    ></path>
+                  </svg>
+                </button>
+                <a href="/sys-admin" className="flex ms-2 md:me-24">
+                  {/* <Image
                     src={Logo}
                     className="h-8 w-auto sm:h-10"
                     alt="GariLagbe Logo"
                     width={80}
                     height={80}
                   /> */}
-                <div className={`${fontBold.className} text-2xl`}>
-                  <Link href={"/"}>
-                    <Image src={Logo} alt="Logo" className="cursor-pointer" />
-                  </Link>
-                </div>
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ml-2">
-                  Admin Dashboard
-                </span>
-              </a>
+                  <div className={`${fontBold.className} text-2xl`}>
+                    <Link href={"/"}>
+                      <Image src={Logo} alt="Logo" className="cursor-pointer" />
+                    </Link>
+                  </div>
+                  <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ml-2">
+                    Admin Dashboard
+                  </span>
+                </a>
+              </div>
+              <Link href="/admin/create-new-parking">
+                <Button className="font-bold hidden md:flex md:flex-row">
+                  <svg
+                    fill="#ffffff"
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    width="600px"
+                    height="600px"
+                    viewBox="0 0 45.402 45.402"
+                    xmlSpace="preserve"
+                  >
+                    <g>
+                      <path
+                        d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141
+		c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27
+		c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435
+		c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"
+                      />
+                    </g>
+                  </svg>
+                  Create New Parking
+                </Button>
+              </Link>
             </div>
             {/* <div className="flex items-center">
               <div className="flex items-center ms-3">
@@ -187,6 +215,31 @@ export default function AdminWrapper({ children }) {
         className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0  "
         aria-label="Sidebar"
       >
+        <Link href="/admin/create-new-parking">
+          <Button className="font-bold flex flex-row md:hidden mb-4 w-full">
+            <svg
+              fill="#ffffff"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width="600px"
+              height="600px"
+              viewBox="0 0 45.402 45.402"
+              xmlSpace="preserve"
+            >
+              <g>
+                <path
+                  d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141
+		c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27
+		c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435
+		c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"
+                />
+              </g>
+            </svg>
+            Create New Parking
+          </Button>
+        </Link>
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white ">
           <ul className="space-y-2 font-medium">
             <li>
@@ -292,30 +345,26 @@ export default function AdminWrapper({ children }) {
               </a>
             </li> */}
             <li>
-                <a
-                  href="/sys-admin/payments"
-                  className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              <a
+                href="/sys-admin/payments"
+                className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                 >
-                  
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
 
-                  <span className="flex-1 ms-3 whitespace-nowrap">
-                    Payments
-                  </span>
-                  
-                </a>
-              </li>
+                <span className="flex-1 ms-3 whitespace-nowrap">Payments</span>
+              </a>
+            </li>
             {/* <li>
               <a
                 href="#"

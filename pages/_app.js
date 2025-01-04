@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 
@@ -8,6 +9,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />
+      <Toaster />
     </SessionProvider>
   );
 }

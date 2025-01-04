@@ -6,12 +6,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Map, Marker } from "pigeon-maps";
 import { osm } from "pigeon-maps/providers";
+import { CldUploadWidget } from "next-cloudinary";
+import axios from "axios";
 
 export default function CreateNewParking() {
   const [formData, setFormData] = useState({
     parkingName: "",
-    location: "",
-    capacity: "",
+    location: [],
+    locationAddress: "",
+    heavyVehicleCapacity: "",
+    lightVehicleCapacity: "",
+    motorbikeBicycleCapacity: "",
+    heavyVehicleRate: "",
+    lightVehicleRate: "",
+    motorbikeBicycleRate: "",
   });
 
   const handleChange = (e) => {
@@ -26,6 +34,23 @@ export default function CreateNewParking() {
     e.preventDefault();
     // Handle form submission logic here
     console.log(formData);
+    fetch("/api/parking/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        let path = `/admin/parking-details/${data.parkingLot.id}`;
+        console.log(path);
+        window.location.href = path;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const [coordinates, setCoordinates] = useState({
@@ -40,7 +65,7 @@ export default function CreateNewParking() {
     });
     setFormData({
       ...formData,
-      location: `${latLng[0]}, ${latLng[1]}`,
+      location: [latLng[0], latLng[1]],
     });
   };
 
@@ -48,7 +73,9 @@ export default function CreateNewParking() {
     <AdminWrapper>
       <div>
         <div className="font-bold">Create New Parking</div>
-        <div>Select the location of your Parking from the map and enter details</div>
+        <div>
+          Select the location of your Parking from the map and enter details
+        </div>
         <div className="mt-4">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col xl:flex-row gap-4">
@@ -64,7 +91,7 @@ export default function CreateNewParking() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="location">Location</Label>
+                  <Label htmlFor="location">Location (Select on the map)</Label>
                   <Input
                     type="text"
                     id="location"
@@ -75,15 +102,24 @@ export default function CreateNewParking() {
                     disabled
                   />
                 </div>
+                <div>
+                  <Label htmlFor="location">Location Address</Label>
+                  <Input
+                    type="text"
+                    id="locationAddress"
+                    name="locationAddress"
+                    value={formData.locationAddress}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-              <div className="rounded-xl w-full xl:max-w-400 overflow-hidden">
+              <div className="rounded-xl w-full xl:max-w-[400px] overflow-hidden">
                 <Map
                   provider={osm}
                   defaultCenter={[23.879, 90.6997]}
                   defaultZoom={10}
                   onClick={handleMapClick}
                   height={200}
-                  // width={500}
                 >
                   <Marker
                     width={50}
@@ -92,17 +128,110 @@ export default function CreateNewParking() {
                 </Map>
               </div>
             </div>
-            <div>
-              <Label htmlFor="capacity">Capacity</Label>
-              <Input
-                type="number"
-                id="capacity"
-                name="capacity"
-                value={formData.capacity}
-                onChange={handleChange}
-              />
+            <div className="flex flex-col lg:flex-row gap-2">
+              <div className="flex-1">
+                <Label htmlFor="heavyVehicleCapacity">
+                  Heavy Vehicle Capacity
+                </Label>
+                <Input
+                  type="number"
+                  id="heavyVehicleCapacity"
+                  name="heavyVehicleCapacity"
+                  value={formData.heavyVehicleCapacity}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="lightVehicleCapacity">
+                  Light Vehicle Capacity
+                </Label>
+                <Input
+                  type="number"
+                  id="lightVehicleCapacity"
+                  name="lightVehicleCapacity"
+                  value={formData.lightVehicleCapacity}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="motorbikeBicycleCapacity">
+                  Motorbike/Bicycle Capacity
+                </Label>
+                <Input
+                  type="number"
+                  id="motorbikeBicycleCapacity"
+                  name="motorbikeBicycleCapacity"
+                  value={formData.motorbikeBicycleCapacity}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-            <Button type="submit">Create Parking</Button>
+            <div className="flex flex-col lg:flex-row gap-2">
+              <div className="flex-1">
+                <Label htmlFor="heavyVehicleRate">
+                  Heavy Vehicle Rate (in BDT)
+                </Label>
+                <Input
+                  type="number"
+                  id="heavyVehicleRate"
+                  name="heavyVehicleRate"
+                  value={formData.heavyVehicleRate}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="lightVehicleRate">
+                  Light Vehicle Rate (in BDT)
+                </Label>
+                <Input
+                  type="number"
+                  id="lightVehicleRate"
+                  name="lightVehicleRate"
+                  value={formData.lightVehicleRate}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="motorbikeBicycleRate">
+                  Motorbike/Bicycle Rate (in BDT)
+                </Label>
+                <Input
+                  type="number"
+                  id="motorbikeBicycleRate"
+                  name="motorbikeBicycleRate"
+                  value={formData.motorbikeBicycleRate}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            {/* <div className="mt-4">
+              <CldUploadWidget
+                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+              >
+                {({ open, results }) => {
+                  if (results && results.event === "success") {
+                    console.log(results);
+                    // setFormData({
+                    //   ...formData,
+                    //   image: results.data.info.files[0].uploadInfo.secure_url,
+                    // });
+                  }
+                  return (
+                    <Button
+                      variant="secondary"
+                      className="w-full"
+                      onClick={() => open()}
+                    >
+                      Upload an Image
+                    </Button>
+                  );
+                }}
+              </CldUploadWidget>
+            </div> */}
+            <Button type="submit" className="mt-4 w-full">
+              Create Parking
+            </Button>
           </form>
         </div>
       </div>

@@ -94,12 +94,22 @@ model User {
   updatedAt DateTime @db.Date
 
   Reservation Reservation[]
+
+  VehicleProfile VehicleProfile[]
 }
 
 model VehicleProfile {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   /// Field referred in an index, but found no data to define the type.
-  licensePlate Json?  @unique
+  vehicleType   String
+  vehicleNumber String   @unique
+  userId        String   @db.ObjectId
+  ownerName     String
+  createdAt     DateTime @db.Date
+  updatedAt     DateTime @db.Date
+  vehicleModel  String
+
+  user User @relation(fields: [userId], references: [id])
 
   Reservation Reservation[]
 }

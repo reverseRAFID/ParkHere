@@ -10,6 +10,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import axios from "axios";
 
 export default function CreateNewParking() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     parkingName: "",
     location: [],
@@ -32,6 +33,7 @@ export default function CreateNewParking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     // Handle form submission logic here
     console.log(formData);
     fetch("/api/parking/create", {
@@ -44,11 +46,13 @@ export default function CreateNewParking() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setLoading(false);
         let path = `/admin/parking-details/${data.parkingLot.id}`;
         console.log(path);
         window.location.href = path;
       })
       .catch((error) => {
+        setLoading(false);
         console.error("Error:", error);
       });
   };
@@ -229,9 +233,11 @@ export default function CreateNewParking() {
                 }}
               </CldUploadWidget>
             </div> */}
-            <Button type="submit" className="mt-4 w-full">
+            {!loading ? <Button type="submit" className="mt-4 w-full">
               Create Parking
-            </Button>
+            </Button> : <Button disabled className="mt-4 w-full">
+              Creating Parking...
+            </Button>}
           </form>
         </div>
       </div>

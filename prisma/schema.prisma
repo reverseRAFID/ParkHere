@@ -51,27 +51,31 @@ model Parkingslot {
 
 model Payment {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  paymentMethod String
+  paymentStatus String
+  paymentAmount Float
+  paymentDate DateTime @db.Date
 
   Reservation Reservation[]
 }
 
 model Reservation {
-  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
-  parkingId            String   @db.ObjectId
-  parkingSlotId        String   @db.ObjectId
-  userId               String   @db.ObjectId
-  vehicleProfileId     String   @db.ObjectId
-  reservationStartTime DateTime @db.Date
-  reservationEndTime   DateTime @db.Date
+  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  parkingId            String    @db.ObjectId
+  parkingSlotId        String    @db.ObjectId
+  userId               String    @db.ObjectId
+  vehicleProfileId     String    @db.ObjectId
+  reservationStartTime DateTime  @db.Date
+  reservationEndTime   DateTime? @db.Date
   reservationStatus    String
-  reservationType      String
-  paymentId            String   @db.ObjectId
+  // reservationType      String
+  paymentId            String?   @db.ObjectId
 
   parking        Parking        @relation(fields: [parkingId], references: [id])
   parkingSlot    Parkingslot    @relation(fields: [parkingSlotId], references: [id])
   user           User           @relation(fields: [userId], references: [id])
   vehicleProfile VehicleProfile @relation(fields: [vehicleProfileId], references: [id])
-  payment        Payment        @relation(fields: [paymentId], references: [id])
+  payment        Payment?       @relation(fields: [paymentId], references: [id])
 }
 
 model Reward {

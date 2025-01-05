@@ -3,7 +3,7 @@ import UserWrapper from "@/components/UserWrapper";
 import React, { useEffect } from "react";
 import { useSession, getSession } from "next-auth/react";
 import { useState } from "react";
-import { Bike, Car, Truck } from "lucide-react";
+import { Bike, Car, Trash2, Truck } from "lucide-react";
 
 export default function Vehicles() {
   const [vehicles, setVehicles] = useState([]);
@@ -86,8 +86,29 @@ export default function Vehicles() {
                     {vehicles.map((vehicle) => (
                       <div
                         key={vehicle.id}
-                        className="p-8 border-2 border-dashed rounded-lg flex flex-col max-w-max cursor-pointer hover:bg-gray-100"
+                        className="relative group p-8 border-2 border-dashed rounded-lg flex flex-col max-w-max cursor-pointer hover:bg-gray-100"
                       >
+                        <div className="absolute top-2 right-2 hidden group-hover:block hover:text-red-600" onClick={() => {
+                            if (confirm("Are you sure you want to delete this vehicle?")) {
+                            fetch("/api/vehicle/get", {
+                              method: "DELETE",
+                              headers: {
+                              "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                              vehicleId: vehicle.id,
+                              }),
+                            })
+                              .then((response) => response.json())
+                              .then((data) => {
+                              console.log(data);
+                              window.location.reload();
+                              })
+                              .catch((error) => {
+                              console.error("Error:", error);
+                              });
+                            }
+                        }}><Trash2 /></div>
                         <div className="font-bold text-lg">
                           {vehicle.vehicleNumber}
                         </div>

@@ -291,7 +291,7 @@ export default function UserWrapper({ children }) {
             </li> */}
             <li>
               <a
-                href="/vehicles"
+                href="/dashboard/vehicles"
                 className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
               >
                 <svg

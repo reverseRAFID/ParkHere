@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -8,11 +8,8 @@ export default async function handler(req, res) {
     try {
       const user = await prisma.user.findUnique({
         where: { email },
-        select: {
-          name: true,
-          role: true,
-          id: true,
-          email: true,
+        include: {
+          Reservation: true,
         },
       });
       if (user) {
@@ -21,7 +18,7 @@ export default async function handler(req, res) {
         res.status(404).json({ error: "User not found" });
       }
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: error.message });
     }
   } else {
     res.status(405).json({ error: "Method not allowed" });
